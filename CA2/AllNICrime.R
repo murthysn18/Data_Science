@@ -12,7 +12,6 @@ workingdic <- trimws(workingdic)  # Trimming and spaces at either ends
 
 setwd(workingdic)
 print(workingdic)     # Printing the working directory
-workingdic
 
 ####################################################################### Question 1 #######################################################
 
@@ -44,7 +43,7 @@ write.csv(AllNICrimeData, file = "CrimeAndVillageData/ALLNICrimeData.csv", row.n
 drop <- c("Crime_ID","Reported_by", "Falls_within", "LSOA_code", "LSOA_name", "Last_outcome","Context")
 AllNICrimeData <- AllNICrimeData[,!(names(AllNICrimeData) %in% drop)]
 
-str(AllNICrimeData)
+head(AllNICrimeData)
 
 
 ####################################################################### Question 3 #######################################################
@@ -70,7 +69,7 @@ AllNICrimeData$Crime_type[AllNICrimeData$Crime_type == "Violence and sexual offe
 AllNICrimeData$Crime_type[AllNICrimeData$Crime_type == "Other crime"] <- "OTCR"
 AllNICrimeData$Crime_type[AllNICrimeData$Crime_type == "Possession of weapons"] <- "POWN"
 
-AllNICrimeData
+head(AllNICrimeData)
 
 
 ####################################################################### Question 4 #######################################################
@@ -102,27 +101,25 @@ head(AllNICrimeData)
 
 ##########################################################################################################################################
 
-CleanNIPostcodeData <- read.csv("NIPostCodesData/CleanNIPostcodeData.csv", header = TRUE)
-
-CleanNIPostcodeData
 
 find_a_town <- function()    # function to get the town names from the post code data from previous section CA
 {
   set.seed(100)
   
-  random_crime_sample_data <- crimedata_new[ sample( which( crimedata_new$Location != "NA" ) , 5000) , ]
+  random_crime_sample_data <- AllNICrimeData[ sample( which(AllNICrimeData$Location != "NA" ) , 5000) , ]
 
   CleanNIPostcodeData <- read.csv("NIPostCodesData/CleanNIPostcodeData.csv", header = TRUE)
   
-  random_crime_sample_data$Town <- CleanNIPostcodeData$Town[match(toupper(random_crime_sample_data$Location), toupper(CleanNIPostcodeData$Primary_Thorfare))]
+  random_crime_sample_data$Town <- CleanNIPostcodeData$Town[match(toupper(random_crime_sample_data$Location), 
+                                                                  toupper(CleanNIPostcodeData$Primary_Thorfare))]
   
   return(random_crime_sample_data) # Ramdom crime data with town data added.
 }
 
 random_crime_sample <- find_a_town()
-  
-head(random_crime_sample)
 
+nrow(random_crime_sample)
+head(random_crime_sample)
 ####################################################################### Question 7 #######################################################
 
 # Create a function to compare town details and add population to sample crime data dataframe
@@ -152,7 +149,7 @@ head(random_crime_sample)
 drop <- c("Falls within","LSOA code")
 random_crime_sample <- random_crime_sample[,!(names(random_crime_sample) %in% drop)]
 
-random_crime_sample
+head(random_crime_sample)
 
 ####################################################################### Question 9 #######################################################
 
@@ -174,7 +171,7 @@ sort(count_derry$freq)
 
 
 par(mfrow = c(2,2))
-plot(count_belfast$x, count_belfast$freq, xlab = "Crime TYpe", ylab = "Crime numbers", main = "All crimes and their numbers in Belfast")  
-plot(count_derry$x, count_derry$freq, xlab = "Crime TYpe", ylab = "Crime numbers", main = "All crimes and their numbers in Londonderry")  
+plot(count_belfast$x, count_belfast$freq, xlab = "Crime Type", ylab = "Crime numbers", main = "All crimes and their numbers in Belfast")  
+plot(count_derry$x, count_derry$freq, xlab = "Crime Type", ylab = "Crime numbers", main = "All crimes and their numbers in Londonderry")  
 
 

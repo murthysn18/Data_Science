@@ -1,6 +1,8 @@
-install.packages("stringr")  # Install stringr package
+install.packages("stringr")
+install.packages("VIM")# Install stringr package
 library(stringr)
 library(dplyr)
+library(VIM)
 
 
 #########################################################################################################################################
@@ -10,7 +12,6 @@ library(dplyr)
 #setting the working directory
 workingdic <- getwd()
 setwd(workingdic)
-
 
 print(workingdic)
 #Read the data from the CSV file.
@@ -41,16 +42,23 @@ niPostCodes_column_name <- c("Organisation Name", "Sub-building Name", "Building
 colnames(niPostCodes) <- niPostCodes_column_name
 
 head(niPostCodes)
-
+str(niPostCodes)
 
 #########################################################################################################################################
 #solution for question 3
 #########################################################################################################################################
 
-#Replacing all the blank values with NA
+#Counting the missing values before replacing or deleting the rows
+
+missing_data_count <- sapply(niPostCodes, function(x) sum(length(which(is.na(x)))))   # Taking the missing fields cound before changes 
+missing_data_count
+
+
+niPostCodes <- with(niPostCodes, niPostCodes[!(niPostCodes$Primary_Thorfare == "" | niPostCodes$Town == "" 
+                                               | niPostCodes$PostCode == "" | niPostCodes$PostCode == ""), ])
 
 niPostCodes[niPostCodes == ""] <- NA
-
+niPostCodes
 head(niPostCodes)
 
 
@@ -58,9 +66,10 @@ head(niPostCodes)
 #solution for question 4
 #########################################################################################################################################
 
-
-missing_data_count <- sapply(niPostCodes, function(x) sum(is.na(x)))
+missing_data_count <- sapply(niPostCodes, function(x) sum(length(which(is.na(x)))))
 missing_data_count
+
+head(niPostCodes)
 
 #########################################################################################################################################
 #solution for question 5
@@ -70,7 +79,7 @@ missing_data_count
 
 niPostCodes <- niPostCodes[,c(which(colnames(niPostCodes)=="Index"),which(colnames(niPostCodes)!="Index"))]
 
-head(niPostCodes)
+str(niPostCodes)
 
 
 #########################################################################################################################################
