@@ -78,7 +78,7 @@ head(niPostCodes)
 #########################################################################################################################################
 #create a new dataset called Limavady_data
 
-Limavady_data <- niPostCodes %>% filter(str_detect(niPostCodes$Location, "LIMAVADY") | str_detect(niPostCodes$TownLand, "LIMAVADY") | str_detect(niPostCodes$Town, "LIMAVADY"))
+Limavady_data <- niPostCodes %>% filter(str_detect(niPostCodes$Primary_Thorfare, "LIMAVADY") | str_detect(niPostCodes$Townland, "LIMAVADY") | str_detect(niPostCodes$Town, "LIMAVADY"))
 
 Limavady_data
 

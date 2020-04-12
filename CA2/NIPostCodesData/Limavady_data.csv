@@ -1,4 +1,4 @@
-"Index","Building_Name","Bulding_No","Block_Name","Block_No","Location","Location_Galic","Road_Name","Village","TownLand","Town","County","PostCode","X-Cordinates","Y-Cordinates"
+"Index","Organisation Name","Sub-building Name","Building Name","Number","Primary_Thorfare","Alt Thorfare","Secondary Thorfare","Locality","Townland","Town","County","PostCode","X-Cordinates","Y-Cordinates"
 73,NA,NA,NA,"30","LEIGHERY ROAD",NA,NA,NA,"BALLYLEIGHERY UPPER","LIMAVADY","LONDONDERRY","BT490JG",270404,431604
 75,NA,NA,NA,"38","CURRAGH ROAD",NA,NA,"BALLYSCULLION","DUNCRUN","LIMAVADY","LONDONDERRY","BT490JE",268543,432534
 76,NA,NA,NA,"405","SEACOAST ROAD",NA,NA,NA,"CLOONEY","LIMAVADY","LONDONDERRY","BT490LW",268640,433777
