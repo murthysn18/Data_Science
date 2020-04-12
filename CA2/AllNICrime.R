@@ -22,11 +22,13 @@ workingdic
 file_paths = list.files(path="CrimeAndVillageData/NI Crime Data", pattern="*.csv", full.names=TRUE, recursive= TRUE)
 
 AllNICrimeData <- sapply(file_paths, read_csv, simplify=FALSE) %>%
-  bind_rows()
+bind_rows()
 
 nrow(AllNICrimeData)
 
-crime_column_name <- c("Crime_ID", "Month", "Reported_by", "Falls within", "Longitude", "Latitude", "Location", "LSOA code", "LSOA_name", "Crime_type", "Last_outcome", "Context")
+crime_column_name <- c("Crime_ID", "Month", "Reported_by", "Falls within",
+                       "Longitude", "Latitude", "Location", "LSOA code", 
+                       "LSOA_name", "Crime_type", "Last_outcome", "Context")
 colnames(AllNICrimeData) <- crime_column_name
 
 head(AllNICrimeData)   # Displaying the first couple of data in the dataframe
@@ -82,7 +84,8 @@ library(plyr)
 CrimeFreq <- prop.table(table(AllNICrimeData$Crime_type))   # converting the entries into frequency table
 CrimeFreq
 
-barplot(CrimeFreq, ylab = "Frequency", xlab = "Crime Type", main = "Different crime and frequency in Northern Ireland", col = rainbow(14))
+barplot(CrimeFreq, ylab = "Frequency", xlab = "Crime Type", 
+        main = "Different crime and frequency in Northern Ireland", col = rainbow(14))
 
 ####################################################################### Question 5 #######################################################
 
@@ -91,7 +94,7 @@ barplot(CrimeFreq, ylab = "Frequency", xlab = "Crime Type", main = "Different cr
 ###########################################################################################################################################
 
 AllNICrimeData$Location <- str_remove(AllNICrimeData$Location, "On or near ") # Removing the sbubstring
-AllNICrimeData$Location[AllNICrimeData$Location == ""] <- NA  # removing the emoty spaces and replacing it with NA
+AllNICrimeData$Location[AllNICrimeData$Location == ""] <- NA  # removing the empty spaces and replacing it with NA
 
 head(AllNICrimeData)
 
@@ -101,6 +104,10 @@ head(AllNICrimeData)
 
 ##########################################################################################################################################
 
+CleanNIPostcodeData <- read.csv("NIPostCodesData/CleanNIPostcodeData.csv", header = TRUE)
+
+CleanNIPostcodeData
+
 find_a_town <- function()    # function to get the town names from the post code data from previous section CA
 {
   set.seed(100)
@@ -109,7 +116,8 @@ find_a_town <- function()    # function to get the town names from the post code
 
   CleanNIPostcodeData <- read.csv("NIPostCodesData/CleanNIPostcodeData.csv", header = TRUE)
   
-  random_crime_sample_data$Town <- CleanNIPostcodeData$Town[match(toupper(random_crime_sample_data$Location), toupper(CleanNIPostcodeData$Location))]
+  random_crime_sample_data$Town <- CleanNIPostcodeData$Town[match(toupper(random_crime_sample_data$Location), 
+                                                                  toupper(CleanNIPostcodeData$Primary_Thorfare))]
   
   return(random_crime_sample_data) # Ramdom crime data with town data added.
 }
@@ -130,7 +138,8 @@ add_town_data <- function(random_crime_sample_dat)  # function for Ramdom crime 
   villageList <- read.csv("CrimeAndVillageData/villagedata/VillageList.csv", header = TRUE)
   villageList
   
-  random_crime_sample_dat$POPULATION <- villageList$POPULATION[match(toupper(random_crime_sample_dat$Town), toupper(villageList$ï..CITY.TOWN.VILLAGE))]
+  random_crime_sample_dat$POPULATION <- villageList$POPULATION[match(toupper(random_crime_sample_dat$Town), 
+                                                                     toupper(villageList$ï..CITY.TOWN.VILLAGE))]
   return(random_crime_sample_dat)
   
 }

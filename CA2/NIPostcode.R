@@ -34,7 +34,10 @@ cat("number of rows: ", nrow(niPostCodes))
 
 # creating column names
 
-niPostCodes_column_name <- c("Building_Name", "Bulding_No", "Block_Name", "Block_No", "Location", "Location_Galic", "Road_Name", "Village", "TownLand", "Town", "County", "PostCode", "X-Cordinates", "Y-Cordinates", "Index" )
+niPostCodes_column_name <- c("Organisation Name", "Sub-building Name", "Building Name",
+                             "Number", "Primary_Thorfare", "Alt Thorfare",
+                             "Secondary Thorfare", "Locality", "Townland", "Town", "County",
+                             "PostCode", "X-Cordinates", "Y-Cordinates", "Index" )
 colnames(niPostCodes) <- niPostCodes_column_name
 
 head(niPostCodes)
@@ -55,32 +58,9 @@ head(niPostCodes)
 #solution for question 4
 #########################################################################################################################################
 
-nrow(niPostCodes[niPostCodes$Building_Name == "NA",])
 
-nrow(niPostCodes[niPostCodes$Bulding_No == "NA",])
-
-nrow(niPostCodes[niPostCodes$Block_Name == "NA",])
-
-nrow(niPostCodes[niPostCodes$Block_No == "NA",])
-
-nrow(niPostCodes[niPostCodes$Location == "NA",])
-
-nrow(niPostCodes[niPostCodes$Location_Galic == "NA",])
-
-nrow(niPostCodes[niPostCodes$Road_Name == "NA",])
-
-nrow(niPostCodes[niPostCodes$Village == "NA",])
-
-nrow(niPostCodes[niPostCodes$TownLand == "NA",])
-
-nrow(niPostCodes[niPostCodes$Town == "NA",])
-
-nrow(niPostCodes[niPostCodes$County == "NA",])
-
-nrow(niPostCodes[niPostCodes$PostCode == "NA",])
-
-nrow(niPostCodes[niPostCodes$`X-Cordinates` == "NA",])
-nrow(niPostCodes[niPostCodes$`Y-Cordinates` == "NA",])
+missing_data_count <- sapply(niPostCodes, function(x) sum(is.na(x)))
+missing_data_count
 
 #########################################################################################################################################
 #solution for question 5
