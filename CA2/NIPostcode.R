@@ -13,6 +13,7 @@ library(VIM)
 workingdic <- getwd()
 setwd(workingdic)
 
+
 print(workingdic)
 #Read the data from the CSV file.
 niPostCodes <- read.csv("NIPostCodesData/NIPostcodes.csv", header = FALSE)
@@ -50,14 +51,14 @@ str(niPostCodes)
 
 #Counting the missing values before replacing or deleting the rows
 
+niPostCodes[niPostCodes == ""] <- NA
+
 missing_data_count <- sapply(niPostCodes, function(x) sum(length(which(is.na(x)))))   # Taking the missing fields cound before changes 
 missing_data_count
 
+niPostCodes <- with(niPostCodes, niPostCodes[!(is.na(niPostCodes$Primary_Thorfare)| is.na(niPostCodes$Town) 
+                                               | is.na(niPostCodes$PostCode) | is.na(niPostCodes$PostCode)),])
 
-niPostCodes <- with(niPostCodes, niPostCodes[!(niPostCodes$Primary_Thorfare == "" | niPostCodes$Town == "" 
-                                               | niPostCodes$PostCode == "" | niPostCodes$PostCode == ""), ])
-
-niPostCodes[niPostCodes == ""] <- NA
 niPostCodes
 head(niPostCodes)
 
