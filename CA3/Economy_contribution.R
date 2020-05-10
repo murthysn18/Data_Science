@@ -3,11 +3,15 @@ install.packages("matrixStats")
 library(matrixStats)
 library("readxl")
 library(reshape2)
+library(readxl)
+library(plyr)
+library(tibble)
 
 workingdic <- getwd()
 workingdic <- trimws(workingdic)  # Trimming and spaces at either ends
 print(workingdic)
 setwd(workingdic)
+
 
 economy_CBIC <- read_xlsx("InputFiles/Irish Industries in Ireland.xlsx", sheet = "Expenditure into Irish Economy")  #irish companies 
 economy_CBFC <- read_xlsx("InputFiles/Foreign Industries in Ireland.xlsx", sheet = "Expenditure into Irish Economy")
@@ -31,7 +35,7 @@ max_value <- max(max(data$Irish_Owned), max(data$Foreign_Owned))
 max_value
 
 data
-barplot(t(data),beside=T,ylim=c(0,(max_value+5000)), main = "Economy contribution of Irish and Foreign companies each year", xlab="Year",ylab="Expenditure towards Irish Economy", col = rainbow(2),axis.lty="solid")
+barplot(t(data),beside=T,ylim=c(0,(max_value+10000)), main = "Economy contribution of Irish and Foreign companies each year", xlab="Year",ylab="Expenditure towards Irish Economy", col = rainbow(2),axis.lty="solid")
 color.names = c("Red","Blue")
 legend("top", rownames(t(data)),cex =0.7,fill=color.names,title="Irish/Foreign companies")
 
@@ -76,6 +80,4 @@ plotlinegraph <- function(data1, data2, data_msg)
 plotlinegraph(Energy_irish, Energy_foreign, "Economy contribution from Energy sector")
 plotlinegraph(Information_irish, Information_foreign, "Economy contribution from Information sector")
 plotlinegraph(Manufacturing_irish, Manufacturing_foreign, "Economy contribution from Manufacturing sector")
-
-
 

@@ -77,8 +77,22 @@ Sales$Index <- 1:nrow(Sales)
 
 # Plotting the graph to show the median of each industry over the years
 
-barplot(Sales$median,names.arg =  Sales$Index, col = (rainbow(28)), xlab = "Industries", ylab = "Sales in millions", ylim = c(0, max(Sales_median+2000) ))
+barplot(Sales$median,names.arg =  Sales$Index, main = "Business over years", col = (rainbow(28)), xlab = "Industries", ylab = "Sales in millions", ylim = c(0, max(Sales_median+2000) ))
 legend("top", c(paste(Sales$Index," ", Sales$Indutry )), cex=0.5)
 
 
+############################################ Applying regression #######################################################
+
+sales_data <- data.frame(2000:2017)
+sales_data_columns <- c("Years")
+colnames(sales_data) <- sales_data_columns
+
+sales_data$totalsales <- c(Total_sales_each_year)
+
+head(sales_data)
+
+simple_linear_model <- lm(sales_data$totalsales ~ sales_data$Years, data = sales_data)
+
+scatter.smooth(x = sales_data$Years, y = sales_data$totalsales, main = "Total_Sales of all industries over the years", 
+               xlab = "Years", ylab = "Total Sales in millions")
 
